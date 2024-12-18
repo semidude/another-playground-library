@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REPOSITORY_VAULT_TOKEN: ${{ secrets.REPOSITORY_VAULT_TOKEN }}
+
+jobs:
+  build:
+    name: CI
+    runs-on: [ self-hosted, ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: allegro-actions/setup-gradle@v1
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Release
+        run: ./gradlew release
+
+      - name: Publish
+        run: ./gradlew publish
