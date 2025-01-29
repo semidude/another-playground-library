@@ -22,7 +22,7 @@ publishing {
     repositories {
         maven {
             name = "githubPackages"
-            url = uri("https://maven.pkg.github.com/semidude/playground-library")
+            url = uri("https://maven.pkg.github.com/semidude/another-playground-library")
             credentials {
                 username = "random-username"
                 password = System.getenv("GITHUB_TOKEN")
