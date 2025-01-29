@@ -1,1 +1,1 @@
-rootProject.name = "another-playground-library"
+rootProject.name = "playground-library"
